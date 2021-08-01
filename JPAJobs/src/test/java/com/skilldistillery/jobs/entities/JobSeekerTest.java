@@ -14,10 +14,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 
-class JobTest {
+class JobSeekerTest {
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Job job;
+	private JobSeeker jobSeeker;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -32,34 +32,33 @@ class JobTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		job = em.find(Job.class, 1);
+		jobSeeker = em.find(JobSeeker.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		job = null;
+		jobSeeker = null;
 	}
 
 	@Test
 	@DisplayName("test scalar fields")
 	void test() {
-		assertNotNull(job);
-		assertEquals("", job.getName());
-		assertEquals("junior java developer", job.getTitle());
-		assertEquals("java, sql", job.getSkills());
-		assertEquals("an exciting opportunity to make money and not starve", job.getDescription());
-		assertEquals(100000, job.getPay());
+		assertNotNull(jobSeeker);
+		assertEquals("mick", jobSeeker.getFirstName());
+		assertEquals("lagassey", jobSeeker.getLastName());
+		assertEquals("student", jobSeeker.getTitle());
+		assertEquals("mick@gmail.com", jobSeeker.getEmail());
+		assertEquals("all around nice guy", jobSeeker.getDescription());
+		assertNull(jobSeeker.getResume());
 	}
-
+	
 	@Test
 	@DisplayName("test joined fields")
 	void test2() {
-		assertNotNull(job);
-		assertEquals("Randomtech", job.getCompany().getName());
-		assertEquals("washington", job.getLocation().getCity());
-		assertEquals("programming", job.getCategory().getName());
-		assertEquals(2, job.getJobSeekers().size());
+		assertNotNull(jobSeeker);
+		assertEquals("remote", jobSeeker.getLocation().getState());
+		assertEquals(3, jobSeeker.getJobs().size());
 	}
 
 }

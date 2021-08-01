@@ -14,10 +14,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 
-class JobTest {
+class CompanyTest {
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Job job;
+	private Company company;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -32,34 +32,29 @@ class JobTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		job = em.find(Job.class, 1);
+		company = em.find(Company.class, 5);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		job = null;
+		company = null;
 	}
 
 	@Test
 	@DisplayName("test scalar fields")
 	void test() {
-		assertNotNull(job);
-		assertEquals("", job.getName());
-		assertEquals("junior java developer", job.getTitle());
-		assertEquals("java, sql", job.getSkills());
-		assertEquals("an exciting opportunity to make money and not starve", job.getDescription());
-		assertEquals(100000, job.getPay());
+		assertNotNull(company);
+		assertEquals("Headhunters & Associates", company.getName());
+		assertEquals("Taking names and collecting noggins for the right price", company.getDescription());
+		assertEquals("Small", company.getSize());
+		assertEquals("18008008000", company.getPhone());
 	}
 
 	@Test
 	@DisplayName("test joined fields")
 	void test2() {
-		assertNotNull(job);
-		assertEquals("Randomtech", job.getCompany().getName());
-		assertEquals("washington", job.getLocation().getCity());
-		assertEquals("programming", job.getCategory().getName());
-		assertEquals(2, job.getJobSeekers().size());
+		assertNotNull(company);
+		assertEquals("Randomtech", company.getRecruitingFor().getName());
 	}
-
 }
