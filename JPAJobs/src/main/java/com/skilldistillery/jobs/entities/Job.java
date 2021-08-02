@@ -1,5 +1,6 @@
 package com.skilldistillery.jobs.entities;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -11,7 +12,11 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Job {
@@ -24,6 +29,13 @@ public class Job {
 	private String skills;
 	private String description;
 	private Integer pay;
+	private Boolean active;
+
+	@CreationTimestamp
+	private LocalDateTime posted;
+	
+	@UpdateTimestamp
+	private LocalDateTime updated;
 
 	@ManyToOne
 	@JoinColumn(name = "company_id")
@@ -36,15 +48,16 @@ public class Job {
 	@ManyToOne
 	@JoinColumn(name = "category_id")
 	private Category category;
+	
 
-	@JsonIgnore
+	@JsonIgnoreProperties(value = "jobs")	
 	@ManyToMany
 	@JoinTable(name = "job_seeker_has_job", 
 	joinColumns = @JoinColumn(name = "job_id"), 
 	inverseJoinColumns = @JoinColumn(name = "job_seeker_id"))
 	List<JobSeeker> jobSeekers;
 
-	@JsonIgnore
+	@JsonIgnoreProperties(value = "jobs")	
 	@ManyToMany
 	@JoinTable(name = "job_has_contact", 
 	joinColumns = @JoinColumn(name = "job_id"), 
@@ -101,6 +114,30 @@ public class Job {
 
 	public void setPay(Integer pay) {
 		this.pay = pay;
+	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
+	public LocalDateTime getPosted() {
+		return posted;
+	}
+
+	public void setPosted(LocalDateTime posted) {
+		this.posted = posted;
+	}
+
+	public LocalDateTime getUpdated() {
+		return updated;
+	}
+
+	public void setUpdated(LocalDateTime updated) {
+		this.updated = updated;
 	}
 
 	public Company getCompany() {

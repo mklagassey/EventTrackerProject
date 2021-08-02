@@ -15,67 +15,63 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.skilldistillery.jobs.entities.Job;
+import com.skilldistillery.jobs.entities.JobSeeker;
+import com.skilldistillery.jobs.services.JobSeekersService;
 import com.skilldistillery.jobs.services.JobsService;
 
 
 @RestController
 @RequestMapping("api")
-public class JobController {
+public class JobSeekerController {
 	
 	@Autowired
-	private JobsService jobsServ;
+	private JobSeekersService jobSeekersServ;
 	
-	@GetMapping("jobs")
-	public List<Job> listJobs() {
-		return jobsServ.allJobs();
+	@GetMapping("jobseekers")
+	public List<JobSeeker> listJobSeekers() {
+		return jobSeekersServ.allJobSeekers();
 	}
 
-	@GetMapping("jobs/{id}")
-	public Job getJob(@PathVariable Integer id) {
-		return jobsServ.findById(id);
+	@GetMapping("jobseekers/{id}")
+	public JobSeeker getJobSeeker(@PathVariable Integer id) {
+		return jobSeekersServ.findById(id);
 	}
 	
-	@PostMapping("jobs")
-	public Job addJob(@RequestBody Job job, HttpServletRequest req, HttpServletResponse resp) {
-		Job newJob = new Job();
+	@PostMapping("jobseekers")
+	public JobSeeker addJobSeeker(@RequestBody JobSeeker jobSeeker, HttpServletRequest req, HttpServletResponse resp) {
+		JobSeeker newJobSeeker = new JobSeeker();
 
 		try {
-			newJob = jobsServ.create(job);
+			newJobSeeker = jobSeekersServ.create(jobSeeker);
 			resp.setStatus(201);
 			StringBuffer url = req.getRequestURL();
-			url.append("/").append(newJob.getId());
+			url.append("/").append(newJobSeeker.getId());
 			resp.setHeader("Location", url.toString());
 		} catch (Exception e) {
 			resp.setStatus(400);
 			e.printStackTrace();
 		}
-		return newJob;
+		return newJobSeeker;
 	}
 	
-	@PutMapping("jobs")
-	public Job update(@RequestBody Job job, HttpServletRequest req, HttpServletResponse resp) {
+	@PutMapping("jobseekers")
+	public JobSeeker update(@RequestBody JobSeeker jobSeeker, HttpServletRequest req, HttpServletResponse resp) {
 		try {
-			job = jobsServ.update(job);
-			if (job == null) {
+			jobSeeker = jobSeekersServ.update(jobSeeker);
+			if (jobSeeker == null) {
 				resp.setStatus(404);
 			}
 		} catch (Exception e) {
 			resp.setStatus(400);
-			job = null;
+			jobSeeker = null;
 			e.printStackTrace();
 		}
-		return job;
+		return jobSeeker;
 	}
 	
-	@DeleteMapping("jobs/{id}")
+	@DeleteMapping("jobseekers/{id}")
 	public void delete(@PathVariable Integer id, HttpServletResponse resp) {
-		Boolean isDeleted = jobsServ.delete(id);
-		if (isDeleted) {
-			resp.setStatus(204);
-		} else {
-			resp.setStatus(404);
-		}
+		jobSeekersServ.delete(id);
 	}
 
 }

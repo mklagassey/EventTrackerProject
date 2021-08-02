@@ -32,6 +32,7 @@ public class JobsServiceImpl implements JobsService {
 	
 	@Override
 	public Job create(Job job) {
+		job.setActive(true);
 		return jobRepo.save(job);
 	}
 
@@ -41,8 +42,17 @@ public class JobsServiceImpl implements JobsService {
 	}
 
 	@Override
-	public void delete(Integer id) {
-		 jobRepo.deleteById(id);
+	public Boolean delete(Integer id) {
+		Boolean deleted = false;
+		Optional<Job> opt = jobRepo.findById(id);
+		if (opt.isPresent()) {
+			Job job = opt.get();
+			if (job.getId() == id) {
+				jobRepo.deleteById(id);
+				deleted = true;
+			}
+		}
+		return deleted;
 	}
 
 }

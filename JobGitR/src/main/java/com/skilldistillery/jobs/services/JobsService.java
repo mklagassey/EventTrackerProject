@@ -14,6 +14,6 @@ public interface JobsService {
 
 	Job update(Job job);
 
-	void delete(Integer id);
+	Boolean delete(Integer id);
 
 }

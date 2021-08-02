@@ -49,12 +49,21 @@ class JobTest {
 		assertEquals("junior java developer", job.getTitle());
 		assertEquals("java, sql", job.getSkills());
 		assertEquals("an exciting opportunity to make money and not starve", job.getDescription());
+		assertTrue(job.getActive());
 		assertEquals(100000, job.getPay());
+	}
+	
+	@Test
+	@DisplayName("test date fields")
+	void test2() {
+		assertNotNull(job);
+		assertEquals(2021, job.getPosted().getYear());
+		assertNull(job.getUpdated());
 	}
 
 	@Test
 	@DisplayName("test joined fields")
-	void test2() {
+	void test3() {
 		assertNotNull(job);
 		assertEquals("Randomtech", job.getCompany().getName());
 		assertEquals("washington", job.getLocation().getCity());
