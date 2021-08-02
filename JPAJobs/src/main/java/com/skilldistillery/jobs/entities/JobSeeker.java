@@ -1,5 +1,6 @@
 package com.skilldistillery.jobs.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -10,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "job_seeker")
@@ -31,6 +34,7 @@ public class JobSeeker {
 	@ManyToOne
 	private Location location;
 	
+	@JsonIgnoreProperties(value = "jobSeekers")	
 	@ManyToMany(mappedBy = "jobSeekers")
 	private List<Job> jobs;
 
@@ -108,6 +112,24 @@ public class JobSeeker {
 
 	public void setJobs(List<Job> jobs) {
 		this.jobs = jobs;
+	}
+	
+	public void addJob(Job job) {
+		if (jobs == null) {
+			jobs = new ArrayList<>();
+		}
+
+		if (!jobs.contains(job)) {
+			jobs.add(job);
+			job.addJobSeeker(this);
+		}
+	}
+
+	public void deleteJob(Job job) {
+		if (jobs != null && jobs.contains(job)) {
+			jobs.remove(job);
+			job.deleteJobSeeker(this);
+		}
 	}
 
 	@Override

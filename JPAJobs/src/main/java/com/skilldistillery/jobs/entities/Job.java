@@ -1,6 +1,7 @@
 package com.skilldistillery.jobs.entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -15,7 +16,6 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -50,7 +50,6 @@ public class Job {
 	private Category category;
 	
 
-	@JsonIgnoreProperties(value = "jobs")	
 	@ManyToMany
 	@JoinTable(name = "job_seeker_has_job", 
 	joinColumns = @JoinColumn(name = "job_id"), 
@@ -170,6 +169,22 @@ public class Job {
 
 	public void setJobSeekers(List<JobSeeker> jobSeekers) {
 		this.jobSeekers = jobSeekers;
+	}
+	
+	public void addJobSeeker(JobSeeker jobSeeker) {
+		if (jobSeekers == null) {jobSeekers = new ArrayList<>();}
+		
+		if (! jobSeekers.contains(jobSeeker)) {
+			jobSeekers.add(jobSeeker);
+			jobSeeker.addJob(this);
+		}
+	}
+
+	public void deleteJobSeeker(JobSeeker jobSeeker) {
+		if (jobSeekers != null && jobSeekers.contains(jobSeeker)) {
+			jobSeekers.remove(jobSeeker);
+			jobSeeker.deleteJob(this);
+		}
 	}
 
 	public List<Contact> getContacts() {
