@@ -22,4 +22,4 @@
 
 ## Database Schema
 
-![Database schema](JobGitRDBSchema.png?raw=true "JobGitR DB Schema")
+![Database schema](dbschema.png?raw=true "JobGitR DB Schema")
