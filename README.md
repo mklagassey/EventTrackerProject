@@ -19,3 +19,7 @@
 | POST | `/api/jobseekers` | {"firstName": "STRING","lastName": "STRING","title": "STRING","description": "STRING","resume": STRING,"email": "STRING"}, "location":{"id": INTEGER}, "jobs": [{"id": INTEGER}] | {"firstName": "STRING","lastName": "STRING","title": "STRING","description": "STRING","resume": STRING,"email": "STRING","location": info,"jobs": info} |
 | PUT | `/api/jobseekers` | {"firstName": "STRING","lastName": "STRING","title": "STRING","description": "STRING","resume": STRING,"email": "STRING"}, "location":{"id": INTEGER}, "jobs": [{"id": INTEGER}] | {"firstName": "STRING","lastName": "STRING","title": "STRING","description": "STRING","resume": STRING,"email": "STRING","location": info,"jobs": info} |
 | DELETE | `/api/jobseekers/{id}` | | |
+
+## Database Schema
+
+![Database schema](JobGitRDBSchema.png?raw=true "JobGitR DB Schema")
