@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JobGitR</title>
+<script type="text/javascript" src="js/script.js"></script>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<h1>Git Yoseff A Job!</h1>
+
+<table id="jobTable"></table><br>
+<button id="newJobButt">Add a job</button>
+
+<div class="newJob" id="newJob" style="display:none">
+<form id="jobForm" method="post">
+    <label for="title">Job Title:</label>
+    <input type="text" name="title" value=""><br>
+
+    <label for="name">Nickname:</label>
+    <input type="text" name="name" value=""><br>
+
+    <label for="pay">Salary:</label>
+    <input type="text" name="pay" value=""><br>
+
+    <label for="skills">Required Skills:</label>
+    <input type="text" name="skills" value=""><br>
+
+    <label for="description">Job description:</label>
+    <input type="blockquote" name="description" value=""><br>
+
+    <label for="companyId">Hiring company:</label>
+    <select name="companyId" id="companyId">
+        <option value="">Please choose a company</option>
+    </select><br>
+    <button type="submit" id="saveJob">
+        Save
+    </button>
+</form>
+</div>
+</body>
+</html>

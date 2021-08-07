@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.skilldistillery.jobs.entities.Company;
 import com.skilldistillery.jobs.entities.Job;
+import com.skilldistillery.jobs.services.CompanyService;
 import com.skilldistillery.jobs.services.JobsService;
 
 
@@ -25,6 +27,13 @@ public class JobController {
 	
 	@Autowired
 	private JobsService jobsServ;
+	@Autowired
+	private CompanyService compServ;
+	
+	@GetMapping("companies")
+	public List<Company> listCompanies() {
+		return compServ.allCompanies();
+	}
 	
 	@GetMapping("jobs")
 	public List<Job> listJobs() {

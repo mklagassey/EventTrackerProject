@@ -24,12 +24,12 @@ public class Job {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	private String title;
+	private String title; // REQUIRED
 	private String name;
 	private String skills;
 	private String description;
 	private Integer pay;
-	private Boolean active;
+	private Boolean active; // REQUIRED
 
 	@CreationTimestamp
 	private LocalDateTime posted;
@@ -39,7 +39,7 @@ public class Job {
 
 	@ManyToOne
 	@JoinColumn(name = "company_id")
-	private Company company;
+	private Company company;         // REQUIRED
 
 	@ManyToOne
 	@JoinColumn(name = "location_id")
