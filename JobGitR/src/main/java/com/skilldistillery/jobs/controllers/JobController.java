@@ -15,10 +15,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.skilldistillery.jobs.entities.Category;
 import com.skilldistillery.jobs.entities.Company;
 import com.skilldistillery.jobs.entities.Job;
+import com.skilldistillery.jobs.entities.Location;
+import com.skilldistillery.jobs.services.CategoryService;
 import com.skilldistillery.jobs.services.CompanyService;
 import com.skilldistillery.jobs.services.JobsService;
+import com.skilldistillery.jobs.services.LocationService;
 
 
 @RestController
@@ -29,6 +33,20 @@ public class JobController {
 	private JobsService jobsServ;
 	@Autowired
 	private CompanyService compServ;
+	@Autowired
+	private LocationService locationServ;
+	@Autowired
+	private CategoryService catServ;
+	
+	@GetMapping("categories")
+	public List<Category> listCategories() {
+		return catServ.allCategories();
+	}
+	
+	@GetMapping("locations")
+	public List<Location> listLocations() {
+		return locationServ.allLocations();
+	}
 	
 	@GetMapping("companies")
 	public List<Company> listCompanies() {
