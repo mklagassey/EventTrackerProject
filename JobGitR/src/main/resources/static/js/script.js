@@ -18,6 +18,9 @@ function go() {
     e.preventDefault();
     let newJob = getNewJobInfoFromForm();
     createNewJob(newJob);
+    let newJobDiv = document.getElementById("newJob");
+    newJobDiv.style.display = "none";
+    document.getElementById("jobForm").reset();
   });
   // UPDATE/DELETE JOB
   // TODO
@@ -35,8 +38,8 @@ function loadCompanyList() {
         console.log(companies);
         for (const company of companies) {
           let companyOption = document.createElement("option");
-		  companyOption.value = company.id;
-		//   console.log(companyOption.value);
+          companyOption.value = company.id;
+          //   console.log(companyOption.value);
           companyOption.textContent = company.name;
           companyDropDown.appendChild(companyOption);
         }
@@ -67,7 +70,7 @@ function loadJobs() {
 
 function displayJobs(jobs) {
   let table = document.getElementById("jobTable");
-
+  table.textContent = "";
   for (const job of jobs) {
     let tr = document.createElement("tr");
     let td = document.createElement("td");
@@ -88,7 +91,7 @@ function getNewJobInfoFromForm() {
   newJob.description = jobForm.description.value;
   company.id = jobForm.companyId.value;
   newJob.company = company;
-//   console.log(newJob);
+  //   console.log(newJob);
   return newJob;
 }
 
