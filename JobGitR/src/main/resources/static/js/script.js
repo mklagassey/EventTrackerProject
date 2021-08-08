@@ -15,16 +15,16 @@ function go() {
     let newJobDiv = document.getElementById("newJob");
     newJobDiv.style.display = "block";
   });
-	// saves job and resets form
-	let saveJobButt = document.getElementById("saveJob");
-	saveJobButt.addEventListener("click", function (e) {
-		e.preventDefault();
-		let newJob = getNewJobInfoFromForm();
-		createNewJob(newJob);
-		let newJobDiv = document.getElementById("newJob");
-		newJobDiv.style.display = "none";
-		document.getElementById("jobForm").reset();
-	});
+  // saves job and resets form
+  let saveJobButt = document.getElementById("saveJob");
+  saveJobButt.addEventListener("click", function (e) {
+    e.preventDefault();
+    let newJob = getNewJobInfoFromForm();
+    createNewJob(newJob);
+    let newJobDiv = document.getElementById("newJob");
+    newJobDiv.style.display = "none";
+    document.getElementById("jobForm").reset();
+  });
 
   // UPDATE/DELETE JOB
   // TODO
@@ -56,54 +56,54 @@ function loadCompanyList() {
 }
 
 function loadLocationList() {
-	let xhr = new XMLHttpRequest();
-	xhr.open("GET", "api/locations");
-	xhr.onreadystatechange = function () {
-	  if (xhr.readyState === 4) {
-		if (xhr.status === 200) {
-		  let locations = JSON.parse(xhr.responseText);
-		  let locationDropDown = document.getElementById("locationId");
-  
-		  console.log(locations);
-		  for (const location of locations) {
-			let locationOption = document.createElement("option");
-			locationOption.value = location.id;
-			//   console.log(companyOption.value);
-			locationOption.textContent = location.city;
-			locationDropDown.appendChild(locationOption);
-		  }
-		} else {
-		  console.log("uh oh, no bueno");
-		}
-	  }
-	};
-	xhr.send();
-  }
+  let xhr = new XMLHttpRequest();
+  xhr.open("GET", "api/locations");
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        let locations = JSON.parse(xhr.responseText);
+        let locationDropDown = document.getElementById("locationId");
 
-  function loadCategoryList() {
-	let xhr = new XMLHttpRequest();
-	xhr.open("GET", "api/categories");
-	xhr.onreadystatechange = function () {
-	  if (xhr.readyState === 4) {
-		if (xhr.status === 200) {
-		  let categories = JSON.parse(xhr.responseText);
-		  let categoryDropDown = document.getElementById("categoryId");
-  
-		  console.log(categories);
-		  for (const category of categories) {
-			let categoryOption = document.createElement("option");
-			categoryOption.value = category.id;
-			//   console.log(companyOption.value);
-			categoryOption.textContent = category.name;
-			categoryDropDown.appendChild(categoryOption);
-		  }
-		} else {
-		  console.log("uh oh, no bueno");
-		}
-	  }
-	};
-	xhr.send();
-  }
+        console.log(locations);
+        for (const location of locations) {
+          let locationOption = document.createElement("option");
+          locationOption.value = location.id;
+          //   console.log(companyOption.value);
+          locationOption.textContent = location.city;
+          locationDropDown.appendChild(locationOption);
+        }
+      } else {
+        console.log("uh oh, no bueno");
+      }
+    }
+  };
+  xhr.send();
+}
+
+function loadCategoryList() {
+  let xhr = new XMLHttpRequest();
+  xhr.open("GET", "api/categories");
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        let categories = JSON.parse(xhr.responseText);
+        let categoryDropDown = document.getElementById("categoryId");
+
+        console.log(categories);
+        for (const category of categories) {
+          let categoryOption = document.createElement("option");
+          categoryOption.value = category.id;
+          //   console.log(companyOption.value);
+          categoryOption.textContent = category.name;
+          categoryDropDown.appendChild(categoryOption);
+        }
+      } else {
+        console.log("uh oh, no bueno");
+      }
+    }
+  };
+  xhr.send();
+}
 
 function loadJobs() {
   let xhr = new XMLHttpRequest();
@@ -129,9 +129,16 @@ function displayJobs(jobs) {
     let tr = document.createElement("tr");
     let td = document.createElement("td");
     td.textContent = job.title;
+	td.value = job.id;
     tr.appendChild(td);
     table.appendChild(tr);
   }
+  document.querySelectorAll("#jobTable td").forEach((e) =>
+    e.addEventListener("click", function (event) {
+		let jobClicked = event.target;
+      // TODO - add function to clear table/addjob button/ display form prefilled with details from selected job
+    })
+  );
 }
 
 function getNewJobInfoFromForm() {
