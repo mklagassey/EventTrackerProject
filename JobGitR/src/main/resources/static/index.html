@@ -7,42 +7,86 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<h1>Git Yoseff A Job!</h1>
+<h1>Git A Job!</h1>
+
+<div id="jobTableDiv" style="display: block">
 
 <table id="jobTable"></table><br>
+</div>
 
 <button id="newJobButt">Add a job</button>
 
 <div class="newJob" id="newJob" style="display:none">
-<form id="jobForm" method="post">
-    <label for="title">Job Title:</label>
-    <input type="text" name="title" value=""><br>
+    <form id="jobForm" method="post">
+        <label for="title">Job Title:</label>
+        <input type="text" name="title" value=""><br>
+    
+        <label for="name">Nickname:</label>
+        <input type="text" name="name" value=""><br>
+    
+        <label for="pay">Salary:</label>
+        <input type="text" name="pay" value=""><br>
+    
+        <label for="skills">Required Skills:</label>
+        <input type="text" name="skills" value=""><br>
+    
+        <label for="description">Job description:</label>
+        <input type="blockquote" name="description" value=""><br>
+    
+        <select name="companyId" id="companyId">
+            <option value="">Please choose a company</option>
+        </select><br>
+        <select name="locationId" id="locationId">
+            <option value="">Please choose a location</option>
+        </select><br>
+        <select name="categoryId" id="categoryId">
+            <option value="">Please choose a category</option>
+        </select><br>
+        <button type="submit" id="saveJob">
+            Save
+        </button>
+    </form>
+    </div>
 
-    <label for="name">Nickname:</label>
-    <input type="text" name="name" value=""><br>
+<div class="jobDetails" id="jobDetails" style="display:none">
+    <form id="updateJobForm" method="put">
+        <input type="hidden" name="id" value="">
+        <label for="title">Job Title:</label>
+        <input type="text" name="title" value=""><br>
+    
+        <label for="name">Nickname:</label>
+        <input type="text" name="name" value=""><br>
+    
+        <label for="pay">Salary:</label>
+        <input type="text" name="pay" value=""><br>
+    
+        <label for="skills">Required Skills:</label>
+        <input type="text" name="skills" value=""><br>
+    
+        <label for="description">Job description:</label>
+        <input type="blockquote" name="description" value=""><br>
 
-    <label for="pay">Salary:</label>
-    <input type="text" name="pay" value=""><br>
-
-    <label for="skills">Required Skills:</label>
-    <input type="text" name="skills" value=""><br>
-
-    <label for="description">Job description:</label>
-    <input type="blockquote" name="description" value=""><br>
-
-    <select name="companyId" id="companyId">
-        <option value="">Please choose a company</option>
-    </select><br>
-    <select name="locationId" id="locationId">
-        <option value="">Please choose a location</option>
-    </select><br>
-    <select name="categoryId" id="categoryId">
-        <option value="">Please choose a category</option>
-    </select><br>
-    <button type="submit" id="saveJob">
-        Save
+        <label for="active">Is actively recruiting?</label>
+        <input type="checkbox" id="active" name="active" value=""><br>
+    
+        <select name="companyIdDetails" id="companyIdDetails">
+            <option value=""></option>
+        </select><br>
+        <select name="locationIdDetails" id="locationIdDetails">
+            <option value=""></option>
+        </select><br>
+        <select name="categoryIdDetails" id="categoryIdDetails">
+            <option value=""></option>
+        </select><br>
+        <button type="submit" id="updateJob">
+            Update
+        </button>
+    </form>
+    <button type="submit" id="deleteJob">
+        DELETE!
     </button>
-</form>
-</div>
+    </div>
+
+
 </body>
 </html>
