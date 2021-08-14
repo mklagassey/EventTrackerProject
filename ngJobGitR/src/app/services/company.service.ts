@@ -1,16 +1,15 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { Job } from '../models/job';
 import { catchError } from 'rxjs/operators';
+import { Company } from '../models/company';
 
 @Injectable({
   providedIn: 'root'
 })
-export class JobService {
-
+export class CompanyService {
   baseUrl = 'http://localhost:8084/';
-  url = this.baseUrl + 'api/jobs';
+  url = this.baseUrl + 'api/companies';
 
   constructor(
     private http: HttpClient
@@ -28,30 +27,12 @@ export class JobService {
     return httpOptions;
   }
 
-
-  index(): Observable<Job[]> {
-    return this.http.get<Job[]>(this.url).pipe(
+  index(): Observable<Company[]> {
+    return this.http.get<Company[]>(this.url).pipe(
         catchError((err: any) => {
           console.log(err);
           return throwError("YOU BROKE SOMETHING IN index()");
         })
       )
   }
-
-    /**
-   * create
-   */
-     public create(job: Job) {
-      // todo.completed = false;
-      // todo.description = '';
-
-      return this.http.post<Job>(this.url, job, this.getHttpOptions())
-        .pipe(
-          catchError((err: any) => {
-            console.log(err);
-            return throwError("YOU BROKE SOMETHING IN create()");
-          })
-        );
-    }
-
 }

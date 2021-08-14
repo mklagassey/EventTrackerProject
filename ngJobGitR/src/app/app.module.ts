@@ -6,11 +6,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { JobService } from './services/job.service';
 import { JobListComponent } from './components/job-list/job-list.component';
+import { HomeComponent } from './components/home/home.component';
+import { CompanyComponent } from './components/company/company.component';
+import { CompanyService } from './services/company.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    JobListComponent
+    JobListComponent,
+    HomeComponent,
+    CompanyComponent
   ],
   imports: [
     BrowserModule,
@@ -19,7 +24,8 @@ import { JobListComponent } from './components/job-list/job-list.component';
     HttpClientModule
   ],
   providers: [
-    JobService // Where we put the injectables to use in constructors
+    JobService, // Where we put the injectables to use in constructors
+    CompanyService
   ],
   bootstrap: [AppComponent]
 })
