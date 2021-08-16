@@ -17,8 +17,10 @@ import { LocationService } from 'src/app/services/location.service';
 export class JobListComponent implements OnInit {
   listAll: boolean = false;
   createJob: boolean = false;
+  editJob: boolean = false;
 
   newJob: Job = new Job();
+  selectedJob: Job = new Job();
   selectedCompany: Company = new Company();
   selectedCategory: Category = new Category();
   selectedLocation: Location = new Location();
@@ -36,6 +38,10 @@ export class JobListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.reload();
+  }
+
+  reload() {
     this.loadJobs();
     this.loadCompanies();
     this.loadCategories();
@@ -44,7 +50,7 @@ export class JobListComponent implements OnInit {
 
   checkSelectedCompany(co: any) {
     this.companies.forEach(arrComp => {
-      if (arrComp.name == co) {
+      if (arrComp.name == co || arrComp.id == co.id) {
         this.selectedCompany = arrComp;
       }
     });
@@ -52,7 +58,7 @@ export class JobListComponent implements OnInit {
 
   checkSelectedCategory(cat: any) {
     this.categories.forEach(arrCat => {
-      if (arrCat.name == cat) {
+      if (arrCat.name == cat || arrCat.id == cat.id) {
         this.selectedCategory = arrCat;
       }
     });
@@ -60,7 +66,7 @@ export class JobListComponent implements OnInit {
 
   checkSelectedLocation(loc: any) {
     this.locations.forEach(arrLoc => {
-      if (arrLoc.city == loc) {
+      if (arrLoc.city == loc || arrLoc.id == loc.id) {
         this.selectedLocation = arrLoc;
       }
     });
@@ -131,5 +137,44 @@ export class JobListComponent implements OnInit {
       (err) => console.error('Observer got an error: ' + err)
     );
   }
+
+  updateJob() {
+
+    this.selectedJob.company = this.selectedCompany;
+    this.selectedJob.category = this.selectedCategory;
+    this.selectedJob.location = this.selectedLocation;
+    console.log("In updateJob() with : " + JSON.stringify(this.selectedJob));
+
+
+    this.jobServ.update(this.selectedJob).subscribe(
+      (data) => {this.selectedJob;
+      this.selectedJob = new Job();
+      this.editJob = false;
+      this.reload();
+      },
+
+      (err) => console.error('Observer got an error: ' + err)
+    );
+  }
+
+  selectJob(jobIn: Job) {
+  this.selectedJob.id = jobIn.id;
+  this.selectedJob.title = jobIn.title;
+  this.selectedJob.name = jobIn.name;
+  this.selectedJob.skills = jobIn.skills;
+  this.selectedJob.description = jobIn.description;
+  this.selectedJob.pay = jobIn.pay;
+  this.selectedJob.active = jobIn.active;
+
+  this.checkSelectedCompany(jobIn.company);
+  this.checkSelectedLocation(jobIn.location);
+  this.checkSelectedCategory(jobIn.category);
+
+  // this.selectedJob.company = jobIn.company;
+  // this.selectedJob.location = jobIn.location;
+  // this.selectedJob.category = jobIn.category;
+  console.log("in selectJob() with selectedJob location: " + JSON.stringify(this.selectedLocation.city));
+
+    }
 
 }

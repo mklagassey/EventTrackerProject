@@ -4,7 +4,7 @@
       <button (click)="listAll = true; createJob = false">Show All Jobs</button>
     </li>
     <li>
-      <button (click)="createJob = true; listAll = false">
+      <button (click)="createJob = true">
         Create New Job
       </button>
     </li>
@@ -13,7 +13,11 @@
 
 <div *ngIf="listAll">
   <ul>
-    <li *ngFor="let job of jobs">{{ job.title | json }}</li>
+    <li *ngFor="let job of jobs">{{ job.title | json }}
+      <button (click)="editJob = true; listAll = false; selectJob(job)">
+        Edit job
+      </button>
+    </li>
   </ul>
   <button (click)="listAll = false">Return</button>
 </div>
@@ -81,3 +85,54 @@
     />
   </form>
 </div>
+
+
+<div *ngIf="editJob">
+  <form>
+
+    <label for="title">Title</label>
+    <input type="text" name="title" [(ngModel)]="selectedJob.title" /><br/>
+    <label for="name">Nickname</label>
+    <input type="text" name="name" [(ngModel)]="selectedJob.name" /><br/>
+    <label for="skills">Required Skills</label>
+    <input type="text" name="skills" [(ngModel)]="selectedJob.skills" /><br/>
+    <label for="description">Description</label>
+    <input type="text" name="description" [(ngModel)]="selectedJob.description"/><br/>
+    <label for="pay">Wage</label>
+    <input type="text" name="pay" [(ngModel)]="selectedJob.pay" /><br/>
+    <label for="active">Applied for?</label>
+    <input type="checkbox" name="active" [(ngModel)]="selectedJob.active" /><br/>
+
+    <label for="company">Hiring company</label>
+    <select (change)="selectCompanyHandler($event)" name="company selector">
+      <option *ngFor="let company of companies" [ngValue]="company.id" [selected]="company.id == selectedCompany.id">
+        {{ company.name }}
+      </option>
+    </select><br>
+
+    <label for="category">Category</label>
+    <select (change)="selectCategoryHandler($event)" name="category selector">
+      <option value="selectedJob.category">{{selectedJob.category}}</option>
+      <option *ngFor="let category of categories" [ngValue]="category.id" [selected]="category.id == selectedCategory.id">
+        {{ category.name }}
+      </option>
+    </select><br>
+
+    <label for="location">Location</label>
+    <select (change)="selectLocationHandler($event)" name="location selector">
+      <option *ngFor="let location of locations" [ngValue]="location.id" [selected]="location.id == selectedLocation.id">
+        {{ location.city }}
+      </option>
+    </select><br>
+
+    <input type="button" name="cancel update" value="Cancel" (click)="editJob = false">
+
+    <input
+      type="submit"
+      name="update job butt"
+      (click)="updateJob()"
+    />
+  </form>
+</div>
+
+
