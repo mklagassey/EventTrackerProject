@@ -4,22 +4,23 @@
       <button (click)="listAll = true; createJob = false">Show All Jobs</button>
     </li>
     <li>
-      <button (click)="createJob = true; listAll = false">Create New Job</button>
+      <button (click)="createJob = true; listAll = false">
+        Create New Job
+      </button>
     </li>
   </span>
 </h1>
 
 <div *ngIf="listAll">
   <ul>
-    <li *ngFor="let job of jobs">{{job.title| json}}</li>
+    <li *ngFor="let job of jobs">{{ job.title | json }}</li>
   </ul>
-  <button (click)="listAll=false">Return</button>
+  <button (click)="listAll = false">Return</button>
 </div>
 
 <div *ngIf="createJob">
-
-<form>
-  <!--
+  <form>
+    <!--
   private String title; // REQUIRED
 	private String name;
 	private String skills;
@@ -31,31 +32,52 @@
 	private Category category;
 -->
 
-  <label for="title">Title</label>
-  <input type="text" name="title" [(ngModel)]="newJob.title"/><br>
-  <label for="name">Nickname</label>
-  <input type="text" name="name" [(ngModel)]="newJob.name"/><br>
-  <label for="skills">Required Skills</label>
-  <input type="text" name="skills" [(ngModel)]="newJob.skills"/><br>
-  <label for="description">Description</label>
-  <input type="text" name="description" [(ngModel)]="newJob.description"/><br>
-  <label for="pay">Wage</label>
-  <input type="text" name="pay" [(ngModel)]="newJob.pay"/><br>
-  <label for="active">Applied for?</label>
-  <input type="checkbox" name="active" [(ngModel)]="newJob.active"/><br>
+    <label for="title">Title</label>
+    <input type="text" name="title" [(ngModel)]="newJob.title" /><br />
+    <label for="name">Nickname</label>
+    <input type="text" name="name" [(ngModel)]="newJob.name" /><br />
+    <label for="skills">Required Skills</label>
+    <input type="text" name="skills" [(ngModel)]="newJob.skills" /><br />
+    <label for="description">Description</label>
+    <input
+      type="text"
+      name="description"
+      [(ngModel)]="newJob.description"
+    /><br />
+    <label for="pay">Wage</label>
+    <input type="text" name="pay" [(ngModel)]="newJob.pay" /><br />
+    <label for="active">Applied for?</label>
+    <input type="checkbox" name="active" [(ngModel)]="newJob.active" /><br />
 
-  <label for="company">Hiring company</label>
-  <select (change)="selectCompanyHandler($event)" name="company selector">
-    <option value="">Please choose a company...</option>
-    <option *ngFor="let company of companies" [ngValue]="company.id">{{company.name}}</option>
-  </select>
-  <input type="text" name="company" value={{selectedCompany.name}}/><br>
+    <label for="company">Hiring company</label>
+    <select (change)="selectCompanyHandler($event)" name="company selector">
+      <option value="">Please choose a company...</option>
+      <option *ngFor="let company of companies" [ngValue]="company.id">
+        {{ company.name }}
+      </option>
+    </select>
 
-  <!-- <label for="location">Location</label>
-  <input type="text" name="location" [(ngModel)]="newJob.location"/><br>
-  <label for="category">Category</label>
-  <input type="text" name="category" [(ngModel)]="newJob.category"/><br> -->
-  <input type="submit" value="Upload New Job" name="addjobbutt" (click)="addJob()"/>
-</form>
+    <label for="category">Category</label>
+    <select (change)="selectCategoryHandler($event)" name="category selector">
+      <option value="">Please choose a category...</option>
+      <option *ngFor="let category of categories" [ngValue]="category.id">
+        {{ category.name }}
+      </option>
+    </select><br>
 
+    <label for="location">Location</label>
+    <select (change)="selectLocationHandler($event)" name="location selector">
+      <option value="">Please choose a city...</option>
+      <option *ngFor="let location of locations" [ngValue]="location.id">
+        {{ location.city }}
+      </option>
+    </select>
+
+    <input
+      type="submit"
+      value="Upload New Job"
+      name="addjobbutt"
+      (click)="addJob()"
+    />
+  </form>
 </div>

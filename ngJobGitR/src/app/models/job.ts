@@ -31,7 +31,7 @@ export class Job {
   company: object = {},
 
   location: object = {id: 1},
-  category: object = {id: 1}
+  category: object = {}
 
   ) {
   this.id = id;

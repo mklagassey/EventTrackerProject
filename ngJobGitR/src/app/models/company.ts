@@ -20,7 +20,7 @@ export class Company {
     description: string = '',
     size: string = '',
     phone: string = '',
-    recruitingFor: object =[]
+    recruitingFor: object = {}
   ) {
     this.id = id;
     this.name = name;
